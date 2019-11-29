@@ -4,6 +4,7 @@
 
 基于spring boot 的mysql 和oracle 的数据字典的生成word
 
+可全量生成，也可指定表生成
 
 不用运行项目，test下有直接可以运行的测试方法，可直接用，用的时候配置一下properties文件数据库的连接
 
@@ -25,3 +26,4 @@ class DatadicDemoApplicationTests {
     }
     
 `
+![image.png](https://i.loli.net/2019/11/29/s4r981SuwLGYU2o.png)

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxf.datadic.mapper.DocMapper">
+
+    <select id="mysqlDoc" resultType="com.lxf.datadic.dto.SqlRes">
+SELECT
+	column_name as columnName,
+	column_type as columnType,
+	is_nullable as isNullAble,
+	COLUMN_DEFAULT as columnDefault,
+	column_comment as columnComment,
+CHARACTER_MAXIMUM_LENGTH as charLength
+FROM
+	information_schema. COLUMNS
+WHERE
+	table_schema = #{dbName,jdbcType=VARCHAR}
+AND table_name = #{tableName,jdbcType=VARCHAR}
+  </select>
+
+
+    <select id="mysqlTables" resultType="string">
+    select
+     table_name  from
+     information_schema.tables
+	WHERE
+	table_schema = #{dbName,jdbcType=VARCHAR}
+  </select>
+
+
+    <select id="oracleDoc" resultType="com.lxf.datadic.dto.SqlRes">
+	SELECT
+	A .COLUMN_NAME AS columnName,
+	A .DATA_TYPE AS columnType,
+	A .CHAR_LENGTH AS charLength,
+	A .NULLABLE AS isNullAble,
+	B.comments AS columnComment
+	FROM
+	all_tab_columns A,
+	DBA_COL_COMMENTS B
+	WHERE
+	A . OWNER = B. OWNER
+	AND A .table_name = B.table_name
+	AND A .COLUMN_NAME = B.COLUMN_NAME
+	AND A . OWNER = #{dbName,jdbcType=VARCHAR}
+	AND A .TABLE_NAME = #{tableName,jdbcType=VARCHAR}
+  </select>
+
+
+    <select id="oracleTables" resultType="string">
+select table_name from USER_TABLES
+  </select>
+
+
+</mapper>
